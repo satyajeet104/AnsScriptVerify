@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%=username %> Dashboard</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>    
+    
+    <script type="text/javascript" src="/instascan.min.js"></script>
+    <script type="text/javascript" src="/qrcode.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+          
+</head>
+<body>
+     
+
+ 
+      
+    <div id="particles-js"></div>
+ 
+  <nav>
+    <div class="nav-wrapper">
+        <span href="#!" style="margin-left: 10px" >You are logged in as <strong><%=username %></strong></span>
+
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+     
+          <li>
+              <a>
+             
+              <a href="/api/routes/auth/logout">Logout</a>
+              </a>
+
+            </li>
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+          <li>
+              <a>
+             
+              <a href="/api/routes/auth/logout">Logout</a>
+              </a>
+
+            </li>
+      </ul>
+    </div>
+  </nav>
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+
+    <div class="navbar-fixed">
+        <nav>
+          <div class="nav-wrapper" style="margin-left:auto; margin-right:auto; width:90%">
+             
+           <span>You are logged in as <strong><%=username %></strong></span>
+           
+           <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+           
+
+            <ul class="right hide-on-med-and-down">
+              <li>
+                <a>
+               
+                <a href="/api/routes/auth/logout">Logout</a>
+                </a>
+
+              </li>
+          
+            </ul>
+
+            <!-- <ul class="side-nav" id="mobile-demo">
+              <li>
+                <a>
+                <a href="/api/routes/auth/logout">Logout</a>
+                </a>
+
+              </li>
+          
+            </ul> -->
+
+
+
+         
+    
+      
+  
+      <div class="row">
+          <div class="col s12 m8 offset-m2 l8 offset-l2">
+          <div class="card hoverable">
+          <div class="card-content text-responsive center-align orange lighten-2">
+              <p>Select the action you want to perform</p>
+          </div>
+          <div class="card-tabs">
+            <ul class="tabs tabs-fixed-width">
+              <li class="tab"><a class="active"  href="#test4">Mark Presence</a></li>
+              <li class="tab"><a href="#test5">Show Stats</a></li>
+            
+            </ul>
+          </div>
+          <div class="card-content grey lighten-2 center-align">
+            <div id="test4">Mark Presence<br>
+           Mark your presence by scanning the unique QR code.
+             <br>
+            
+
+
+<video id="preview"  style="margin:auto; width:100%; min-height:100%"></video>
+
+
+
+<form    action="/api/routes/student/markAttendance" method="post">
+  <div class="row">
+
+    <div class="input-field col s4">
+      <input id="date" type="text" name='date'required>
+      <label for="date">Date</label>
+    </div>
+ 
+    <div class="input-field col s4">
+      <input id="password" type="text" name='otp' required>
+      
+    </div>
+ 
+        <div class="input-field col s4">
+          <input id="class_" type="text" name='subject' required>
+          <label for="class_">Subject</label>
+        </div>
+      </div>
+  
+      <div class="row">
+            <div class="input-field col s12">
+                    <input class="btn waves-effect hoverable" type='submit' value='Mark Presence'>
+            </div>
+          </div>
+
+</form>
+
+    
+
+
+
+
+
+
+
+
+
+
+          
+          
+          </div>
+
+
+            <div id="test5">Show Stats<br>
+
+      <form method='post' action='/api/routes/query/totalClasses'>
+        <input class="btn waves-effect hoverable" type='submit' value='Show stats'>
+
+
+      </form>        
+     
+  
+
+
+      <table class='striped '>
+        <thead>
+          <tr>
+              <th>Subject</th>
+              <th>Present</th>
+              <th>Absent</th>
+              <th style="display:none">Total</th>
+              <th>Percent</th>
+          </tr>
+        </thead>
+
+
+        <tbody>
+          <tr>
+            <td><%=s1 %></td>
+            <td><%=p1 %></td>
+            <td><%=a1 %></td>
+            <td style="display:none"><%=t1 %></td>
+            <td><%=per1 %></td>
+          </tr>
+       
+        </tbody>
+        
+        <tbody>
+          <tr>
+            <td><%=s2 %></td>
+            <td><%=p2 %></td>
+            <td><%=a2 %></td>
+            <td style="display:none"><%=t2 %></td>
+            <td><%=per2 %></td>
+          </tr>
+       
+        </tbody>
+        
+        <tbody>
+          <tr>
+            <td><%=s3 %></td>
+            <td><%=p3 %></td>
+            <td><%=a3 %></td>
+            <td style="display:none"><%=t3 %></td>
+            <td><%=per3 %></td>
+          </tr>
+       
+        </tbody>
+        
+        <tbody>
+          <tr>
+            <td><%=s4 %></td>
+            <td><%=p4 %></td>
+            <td><%=a4 %></td>
+            <td style="display:none"><%=t4 %></td>
+            <td><%=per4 %></td>
+          </tr>
+       
+        </tbody>
+        
+        <tbody>
+          <tr>
+            <td><%=s5 %></td>
+            <td><%=p5 %></td>
+            <td><%=a5 %></td>
+            <td style="display:none"><%=t5 %></td>
+            <td><%=per5 %></td>
+          </tr>
+       
+        </tbody>
+
+      </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          </div>
+          
+          </div>
+             </div>
+          </div>
+        </div>
+      
+
+
+
+        <footer class="page-footer " style="left: 0;bottom: 0;width: 100%;">
+
+          <div class="footer-copyright">
+            <div class="container">
+            © 2018 QRAttend
+            <p class="grey-text text-lighten-4 right">Designed and Developed By <strong>Sandeep Yadav</strong> and <strong>Satyajeet Singh</strong></p>
+           
+          </div>
+          </div>
+        </footer>
+            
+
+
+<!-- 
+
+
+
+
+
+<video id="preview" width="300%" height="100%" style="margin:auto"></video> -->
+
+<script type="text/javascript">
+
+
+  let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+  scanner.addListener('scan', function (content) {
+	console.log(content);
+  //document.getElementById('code').innerHTML=content;
+  document.getElementById('password').value=content;
+  });
+  Instascan.Camera.getCameras().then(function (cameras) {
+
+	if (cameras.length==1) {
+	  scanner.start(cameras[0]);
+	} 
+	else if( cameras.length==2)
+	{
+    
+		scanner.start(cameras[1]);
+	}else {
+	  console.error('No cameras found.');
+	}
+  }  
+).catch(function (e) {
+	console.error(e);
+  });
+</script>
+
+</body>
+
+<style>
+
+  #particles-js {
+     
+  background-image:linear-gradient(to right, #434343 0%,#000000 100%);; /* #01013e */
+    /* background: url("http://www.vlime.co.nz/images/buttons/backgroundimage.jpg");
+    background-attachment: fixed;
+    background-size: cover; */
+    z-index: -50;
+    position: fixed;
+  height: 100%;
+    width: 100%;
+}
+</style>
+  <script> $(".button-collapse").sideNav();</script>
+  <script type="text/javascript" src="/javascript/particles.js"></script>
+ 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  
+<script type="text/javascript" src="/dashboard.js"></script>
+
+
+<script>
+  
+
+  particlesJS('particles-js',
+    
+    {
+      "particles": {
+        "number": {
+          "value": 100,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": "#ffffff"
+        },
+        "shape": {
+          "type": "circle",
+          "stroke": {
+            "width": 0,
+            "color": "#000000"
+          },
+          "polygon": {
+            "nb_sides": 5
+          },
+          "image": {
+            "src": "img/github.svg",
+            "width": 100,
+            "height": 100
+          }
+        },
+        "opacity": {
+          "value": 0.5,
+          "random": false,
+          "anim": {
+            "enable": false,
+            "speed": 1,
+            "opacity_min": 0.1,
+            "sync": false
+          }
+        },
+        "size": {
+          "value": 5,
+          "random": true,
+          "anim": {
+            "enable": false,
+            "speed": 40,
+            "size_min": 0.1,
+            "sync": false
+          }
+        },
+        "line_linked": {
+          "enable": false,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 6,
+          "direction": "none",
+          "random": false,
+          "straight": false,
+          "out_mode": "out",
+          "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+          }
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": false,
+            "mode": "repulse"
+          },
+          "onclick": {
+            "enable": false,
+            "mode": "push"
+          },
+          "resize": true
+        },
+        "modes": {
+          "grab": {
+            "distance": 400,
+            "line_linked": {
+              "opacity": 1
+            }
+          },
+          "bubble": {
+            "distance": 400,
+            "size": 40,
+            "duration": 2,
+            "opacity": 8,
+            "speed": 3
+          },
+          "repulse": {
+            "distance": 200
+          },
+          "push": {
+            "particles_nb": 4
+          },
+          "remove": {
+            "particles_nb": 2
+          }
+        }
+      },
+      "retina_detect": true,
+      "config_demo": {
+        "hide_card": false,
+        "background_color": "#b61924",
+        "background_image": "",
+        "background_position": "50% 50%",
+        "background_repeat": "no-repeat",
+        "background_size": "cover"
+      }
+    }
+  
+  );
+  
+    
+    </script>
+    
+
+</html>

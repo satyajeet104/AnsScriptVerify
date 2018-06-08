@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+           
+    <script type="text/javascript" src="/instascan.min.js"></script>
+    <script type="text/javascript" src="/qrcode.js"></script>
+    <title><%=username %> Dashboard</title>
+   
+</head>
+<body>
+         
+  <div id="particles-js"></div>
+  <nav>
+    <div class="nav-wrapper">
+        <span href="#!" style="margin-left: 10px" >You are logged in as <strong><%=username %></strong></span>
+
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+     
+          <li>
+              <a>
+             
+              <a href="/api/routes/auth/logout">Logout</a>
+              </a>
+
+            </li>
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+          <li>
+              <a>
+             
+              <a href="/api/routes/auth/logout">Logout</a>
+              </a>
+
+            </li>
+      </ul>
+    </div>
+  </nav>
+
+      
+   <div class="row" style="opacity: 0.9">
+    <div class="col s12 m8 offset-m2 l8 offset-l2">
+    <div class="card">
+    <div class="card-content text-responsive center-align orange lighten-2">
+        <p>Select the action you want to perform</p>
+    </div>
+    <div class="card-tabs">
+      <ul class="tabs tabs-fixed-width">
+        <li class="tab"><a href="#test4">Take Attendance</a></li>
+      
+      </ul>
+    </div>
+    <div class="card-content grey lighten-2 center-align">
+      <div id="test4">Take Attendance<br>
+        Type in some text to generate a unique QR code.
+       <br>
+        <!-- <input id="text" type="text" value="hello"  style='width:50%'/><br /> -->
+        <!-- <div id="qrcode" class="center-align" style="margin-left:auto; margin-right:auto ;width:25%; min-height:25%" ></div>
+    -->
+        <br>
+
+
+
+
+
+            <form    action="/api/routes/teacher/takeAttendance" method="post">
+              <div class="row">
+            
+                <div class="input-field col s3">
+                  <input id="date" type="text" name='date' required>
+                  <label for="date">Date</label>
+                </div>
+             
+                <div class="input-field col s3">
+                  <input id="text" type="text" value="hello"  style='width:50%' name='otp' required>
+                  <label for="text">OTP</label>
+                </div>
+             
+                    <div class="input-field col s3">
+                      <input id="class_" type="text" name='class' required>
+                      <label for="class_">Class</label>
+                    </div>
+
+                    <div class="input-field col s3">
+                      <input id="subject" type="text" name='subject' required>
+                      <label for="subject">Subject</label>
+                    </div>
+
+                  </div>
+              
+                  <div class="row">
+                        <div class="input-field col s12">
+                                <input class="btn waves-effect hoverable" type='submit' value='Take Attendance'>
+                        </div>
+                      </div>
+
+            </form>
+         
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <!-- <form action="/api/routes/teacher/takeAttendance" method="post">
+
+        <input type='text' id='last_name' name='date' placeholder="Date">
+        <label for="last_name">Last Name</label>
+        <input type='text' name='otp' placeholder="OTP">
+        <input type='text' name='class' placeholder="Class">
+        <input class="btn waves-effect hoverable tooltipped" type='submit' value='Take Attendance'>
+      </form> -->
+<br>
+
+    
+
+
+    </div>
+
+
+
+    
+    </div>
+       </div>
+    </div>
+  </div>
+
+
+  <footer class="page-footer " style="position:fixed; left: 0;bottom: 0;width: 100%;">
+
+    <div class="footer-copyright">
+      <div class="container">
+      © 2018 QRAttend
+      <p class="grey-text text-lighten-4 right">Designed and Developed By <strong>Sandeep Yadav</strong> and <strong>Satyajeet Singh</strong></p>
+     
+    </div>
+    </div>
+  </footer>
+
+
+
+
+
+<!-- 
+
+      <h1 id="hello"><%=username %></h1>
+      <input id="text" type="text" value="hello" style="width:80%" /><br />
+      <div id="qrcode" style="width:100px; height:100px; margin-top:15px;"></div> -->
+
+
+
+
+
+
+
+
+
+
+      <script type="text/javascript">
+      var qrcode = new QRCode(document.getElementById("qrcode"), {
+          width : 300,
+          height : 300
+      });
+      
+      function makeCode () {		
+          var elText = document.getElementById("text");
+          
+          if (!elText.value) {
+              alert("Input a text");
+              elText.focus();
+              return;
+          }
+          
+          qrcode.makeCode(elText.value);
+      }
+      
+      makeCode();
+      
+      $("#text").
+          on("blur", function () {
+              makeCode();
+          }).
+          on("keydown", function (e) {
+              if (e.keyCode == 13) {
+                  makeCode();
+              }
+          });
+      </script>
+      
+      <br>
+</body>
+
+
+
+<script> $(".button-collapse").sideNav();</script>
+<script type="text/javascript" src="/javascript/particles.js"></script>
+ 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>    
+<script type="text/javascript" src="/dashboard.js"></script>
+
+
+<style>
+
+  #particles-js {
+     
+  background-image:linear-gradient(to right, #434343 0%,#000000 100%);; /* #01013e */
+    /* background: url("http://www.vlime.co.nz/images/buttons/backgroundimage.jpg");
+    background-attachment: fixed;
+    background-size: cover; */
+    z-index: -50;
+    position: fixed;
+  height: 100%;
+    width: 100%;
+}
+</style>
+<script>
+  
+
+  particlesJS('particles-js',
+    
+    {
+      "particles": {
+        "number": {
+          "value": 100,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": "#ffffff"
+        },
+        "shape": {
+          "type": "circle",
+          "stroke": {
+            "width": 0,
+            "color": "#000000"
+          },
+          "polygon": {
+            "nb_sides": 5
+          },
+          "image": {
+            "src": "img/github.svg",
+            "width": 100,
+            "height": 100
+          }
+        },
+        "opacity": {
+          "value": 0.5,
+          "random": false,
+          "anim": {
+            "enable": false,
+            "speed": 1,
+            "opacity_min": 0.1,
+            "sync": false
+          }
+        },
+        "size": {
+          "value": 5,
+          "random": true,
+          "anim": {
+            "enable": false,
+            "speed": 40,
+            "size_min": 0.1,
+            "sync": false
+          }
+        },
+        "line_linked": {
+          "enable": false,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 6,
+          "direction": "none",
+          "random": false,
+          "straight": false,
+          "out_mode": "out",
+          "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+          }
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": false,
+            "mode": "repulse"
+          },
+          "onclick": {
+            "enable": false,
+            "mode": "push"
+          },
+          "resize": true
+        },
+        "modes": {
+          "grab": {
+            "distance": 400,
+            "line_linked": {
+              "opacity": 1
+            }
+          },
+          "bubble": {
+            "distance": 400,
+            "size": 40,
+            "duration": 2,
+            "opacity": 8,
+            "speed": 3
+          },
+          "repulse": {
+            "distance": 200
+          },
+          "push": {
+            "particles_nb": 4
+          },
+          "remove": {
+            "particles_nb": 2
+          }
+        }
+      },
+      "retina_detect": true,
+      "config_demo": {
+        "hide_card": false,
+        "background_color": "#b61924",
+        "background_image": "",
+        "background_position": "50% 50%",
+        "background_repeat": "no-repeat",
+        "background_size": "cover"
+      }
+    }
+  
+  );
+  
+    
+    </script>
+</html>
