@@ -1,5 +1,18 @@
+const express = require('express')
+const router = express.Router()
+const db = require('./../../db')
+const formidable = require('formidable');
 
-app.post('/', function (req, res){
+
+router.get('/',(req,res)=> {
+   
+    res.render("index1");
+    
+
+})
+
+
+router.post('/', function (req, res){
 
     var promise1=new Promise(function(resolve,reject){
         var form = new formidable.IncomingForm();
@@ -26,3 +39,4 @@ app.post('/', function (req, res){
       
     
 });
+exports=module.exports = router

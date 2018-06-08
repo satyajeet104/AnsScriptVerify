@@ -1,6 +1,6 @@
 const express = require('express')
 const path = require('path')
-const formidable = require('formidable');
+
 const app = express();
 const morgan = require('morgan')
 const db = require('./db');
@@ -12,6 +12,8 @@ const MySQLStore = require('express-mysql-session')(session);
 
 
 const auth=require('./api/routes/auth')
+const admin = require('./api/routes/admin')
+
 app.set("view engine", "ejs");
 
 db.connect();
@@ -288,6 +290,7 @@ var options = {
     
   
   app.use('/api/routes/auth',auth);
+  app.use('/api/routes/admin',admin);
 
 
 

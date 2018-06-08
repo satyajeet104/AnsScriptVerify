@@ -13,7 +13,7 @@ const db = require('./../../db')
 
 router.post('/studentAuth',  passport.authenticate('local.one', { failureRedirect: '/studentLogin' }), (req, res,next) => {
 
-  var sql = 'select * from student_details where student_id=?;';
+  var sql = 'select * from student_auth where id=?;';
     
   db.query(sql,[req.user], function (error, results, fields) {
     if (error) throw error;
@@ -23,12 +23,7 @@ router.post('/studentAuth',  passport.authenticate('local.one', { failureRedirec
         res.send(null);
     }
     else{
-      res.render('../views/studentDashboard',{username:results[0].student_name, s1:'' , s2:'', s3:'', s4:'', s5:'',
-    t1:'', t2:'', t3:'', t4:'', t5:'', p1:'', p2:'', p3:'', p4:'', p5:'', a1:'', a2:'', a3:'', a4:'', a5:'',
-        
-    per1:'', per2:'', per3:'', per4:'', per5:''
-    
-    }) 
+      res.render('../views/studentDashboard',{username:results[0].name }) 
     
         
     }
@@ -40,7 +35,7 @@ router.post('/studentAuth',  passport.authenticate('local.one', { failureRedirec
 })
 router.post('/adminAuth',  passport.authenticate('local.two', { failureRedirect: '/adminLogin' }), (req, res,next) => {
 
-  var sql = 'select * from admin_details where admin_id=?;';
+  var sql = 'select * from admin_auth where id=?;';
     
   db.query(sql,[req.user], function (error, results, fields) {
     if (error) throw error;
@@ -50,7 +45,7 @@ router.post('/adminAuth',  passport.authenticate('local.two', { failureRedirect:
         res.send(null);
      }
     else{
-     res.render('../views/adminDashboard', {username:results[0].admin_name});
+     res.render('../views/adminDashboard', {username:results[0].name});
         
     }
  
@@ -60,7 +55,7 @@ router.post('/adminAuth',  passport.authenticate('local.two', { failureRedirect:
 
 })
 router.post('/teacherAuth',  passport.authenticate('local.three', { failureRedirect: '/teacherLogin' }), (req, res,next) => {
-  var sql = 'select * from teacher_details where teacher_id=?;';
+  var sql = 'select * from teacher_auth where id=?;';
     
   db.query(sql,[req.user], function (error, results, fields) {
     if (error) throw error;
@@ -70,7 +65,7 @@ router.post('/teacherAuth',  passport.authenticate('local.three', { failureRedir
         res.send(null);
     }
     else{
-      res.render('../views/teacherDashboard', {username:results[0].teacher_name});
+      res.render('../views/teacherDashboard', {username:results[0].name});
         
     }
  
@@ -96,15 +91,6 @@ passport.deserializeUser(function(user_id, done) {
     done(null, user_id);
 
 });
-
-function authenticationMiddleware () {  
-	return (req, res, next) => {
-		console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
-
-	    if (req.isAuthenticated()) return next();
-	    res.redirect('/studentLogin')
-	}
-}
 
 exports=module.exports = router
 
@@ -182,5 +168,17 @@ exports=module.exports = router
     
 // })
 
+
+
+
+
+function authenticationMiddleware () {  
+	return (req, res, next) => {
+		console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
+
+	    if (req.isAuthenticated()) return next();
+	    res.redirect('/studentLogin')
+	}
+}
 
 */
