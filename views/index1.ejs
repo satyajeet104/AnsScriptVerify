@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    
+
 </head>
+
 <body>
-     
+
+
+    <form action="/api/routes/admin/recog" enctype="multipart/form-data" method="post">
+        <input formenctype="multipart/form-data" type="file" name="upload" multiple>
         
-<form action="/api/routes/auth" enctype="multipart/form-data" method="post">
-    <input type="file" name="upload" multiple>
-    <input type="submit" value="Upload">
-</form>
+        <input type="submit">
+    </form>
 </body>
+
 </html>
