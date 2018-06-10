@@ -7,16 +7,6 @@ var dir="";
 var filename="";
 
 
-
-
-
-router.get('/', (req, res) => {
-
-    res.render("adminDashboard");
-
-
-})
-
 router.post('/recog', function (req, res) {
 
     var form = new formidable.IncomingForm();

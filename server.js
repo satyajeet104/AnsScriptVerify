@@ -9,10 +9,15 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session')
 const MySQLStore = require('express-mysql-session')(session);
+const http = require('http');
+// getting the server of app
+
+
 
 
 const auth = require('./api/routes/auth')
 const admin = require('./api/routes/admin')
+const student=require('./api/routes/student')
 
 app.set("view engine", "ejs");
 
@@ -254,6 +259,17 @@ app.get('/views/admin', (req, res) => {
 
 });
 
+app.get('/test',(req,res)=>{
+  res.render("studentDashboard",{username:"user"})
+})
+app.get('/test1',(req,res)=>{
+  res.render("after");
+})
+app.get('/chat',(req,res)=>{
+  res.render("chat");
+
+})
+
 
 function authenticationMiddleware1() {
   return (req, res, next) => {
@@ -285,9 +301,45 @@ function authenticationMiddleware3() {
 
 app.use('/api/routes/auth', auth);
 app.use('/api/routes/admin', admin);
-
+app.use('/api/routes/student',student);
 
 
 app.use('/', express.static(path.join(__dirname, 'public')))
 
-app.listen(3098, () => console.log('Server started at http://localhost:2678'))
+app.use(express.static(__dirname + 'public'));
+
+
+var server  = app.listen(2978);
+var io      = require('socket.io').listen(server);
+let users = {};
+
+io.on('connection', function (socket) {
+
+
+    console.log("a new connection has connected");
+
+    socket.on('new_msg', function (data) {
+        if (data.msg.charAt(0) == '@'){
+            console.log(data);
+            console.log(data.msg.split(" ")[0]);
+            var msg = data.msg.substring(data.msg.indexOf(" ") + 1)
+            console.log(msg)
+            io.to(users[data.msg.split(" ")[0]]).emit('chat',{
+                username: data.username,
+                msg : msg
+            });
+
+        }else{
+            console.log(data);
+            io.emit('chat', data);
+        }
+
+    })
+
+    socket.on('store_user', function (data) {
+        users["@" + data.user] = socket.id
+        console.log(users);
+    })
+
+
+})
