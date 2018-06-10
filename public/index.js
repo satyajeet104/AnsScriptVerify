@@ -1,6 +1,4 @@
-/**
- * Created by rishabhkhanna on 02/12/17.
- */
+
 var socket = io();
 var user = prompt("who you ?")
 $(function () {
