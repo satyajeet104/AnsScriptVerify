@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 
   
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    
           
 </head>
 <body>
@@ -22,7 +22,7 @@
  
   <nav>
     <div class="nav-wrapper">
-        <span href="#!" style="margin-left: 10px" >You are logged in as <strong><%=username %></strong></span>
+        <span href="#!" style="margin-left: 10px" >You are logged in as <strong id="userName"><%=username %></strong></span>
 
       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
@@ -65,33 +65,57 @@
           <div class="card-tabs">
             <ul class="tabs tabs-fixed-width">
               <li class="tab"><a class="active"  href="#test4">View Answer Script</a></li>
-              <li class="tab"><a href="#test5">Show Stats</a></li>
+              <li class="tab"><a href="#test5">Live Session</a></li>
             
             </ul>
           </div>
           <div class="card-content grey lighten-2 center-align">
             <div id="test4">
             
+                <div class="carousel carousel-slider">
+                    <a class="carousel-item" href="#one!"><img src="/uploads/<%-username %>/1.png"></a>
+                    <a class="carousel-item" href="#one!"><img src="/uploads/<%-username %>/2.png"></a>
+                    <a class="carousel-item" href="#one!"><img src="/uploads/<%-username %>/3.png"></a>
+                    <a class="carousel-item" href="#one!"><img src="/uploads/<%-username %>/4.png"></a>
+                    <a class="carousel-item" href="#one!"><img src="/uploads/<%-username %>/5.png"></a>
+                    <a class="carousel-item" href="#one!"><img src="/uploads/<%-username %>/6.png"></a>
+                    <a class="carousel-item" href="#one!"><img src="/uploads/<%-username %>/7.png"></a>
+                    <a class="carousel-item" href="#one!"><img src="/uploads/<%-username %>/8.png"></a>
+                    <a class="carousel-item" href="#one!"><img src="/uploads/<%-username %>/9.png"></a>
+                    <a class="carousel-item" href="#one!"><img src="/uploads/<%-username %>/10.png"></a>          
 
-
-
-
-
-
-
-
-
-
+       
+                  </div>
+                        
 
           
           
           </div>
 
 
-            <div id="test5">Show Stats<br>
+            <div id="test5">Live Session<br>
 
-      <form method='post' action='/api/routes/query/totalClasses'>
-        <input class="btn waves-effect hoverable" type='submit' value='Show stats'>
+              <form    action="/session" method="post">
+                <div class="row">
+              
+                  <div class="input-field col s12">
+                    <input id="date" type="text" name='tname' required>
+                    <label for="date">Teacher Name</label>
+                  </div>
+               
+              
+  
+                    </div>
+                
+                    <div class="row ">
+                          <div class="input-field col s12">
+                                  <input class="btn waves-effect hoverable" type='submit' value='Submit Data'>
+                          </div>
+                        </div>
+  
+              </form>
+           
+                  
 
 
       </form>        
@@ -124,42 +148,35 @@
           </div>
         </footer>
             
-
-
-<!-- 
-
-
-
-
-
-<video id="preview" width="300%" height="100%" style="margin:auto"></video> -->
-
-<script type="text/javascript">
-
-
-  let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-  scanner.addListener('scan', function (content) {
-	console.log(content);
-  //document.getElementById('code').innerHTML=content;
-  document.getElementById('password').value=content;
-  });
-  Instascan.Camera.getCameras().then(function (cameras) {
-
-	if (cameras.length==1) {
-	  scanner.start(cameras[0]);
-	} 
-	else if( cameras.length==2)
-	{
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+        <script> $(".button-collapse").sideNav();</script>
+        <script> $('.carousel.carousel-slider').carousel({
+            fullWidth: true,
+            pressed:true
+          });
+          var add=$("#userName").text();
+          console.log(add);
+          
+          
+          
+          </script>
+      
+       
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  
+      <script type="text/javascript" src="/javascript/particles.js"></script>
     
-		scanner.start(cameras[1]);
-	}else {
-	  console.error('No cameras found.');
-	}
-  }  
-).catch(function (e) {
-	console.error(e);
-  });
-</script>
+       
+      <script type="text/javascript" src="/dashboard.js"></script>
+      
+      
+
+
+
+
+
+
+
+
 
 </body>
 
@@ -177,13 +194,7 @@
     width: 100%;
 }
 </style>
-  <script> $(".button-collapse").sideNav();</script>
-  <script type="text/javascript" src="/javascript/particles.js"></script>
  
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  
-<script type="text/javascript" src="/dashboard.js"></script>
-
-
 <script>
   
 

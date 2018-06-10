@@ -61,6 +61,7 @@ router.post('/recog', function (req, res) {
             Tesseract.recognize(myImage)
                 .then((result) => {
                     dir=result.text.split(" ")[0];
+                   // dir=dir.split('/n')[0];
                     console.log(dir+dir)
                           
                     var sql3 = 'select * from admin_auth where id=?;';

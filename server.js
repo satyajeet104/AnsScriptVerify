@@ -260,7 +260,7 @@ app.get('/views/admin', (req, res) => {
 });
 
 app.get('/test',(req,res)=>{
-  res.render("studentDashboard",{username:"user"})
+  res.render("studentDashboard",{username:'Settimana'})
 })
 app.get('/test1',(req,res)=>{
   res.render("after");
