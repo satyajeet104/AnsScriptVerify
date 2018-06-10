@@ -266,9 +266,10 @@ app.get('/test1',(req,res)=>{
   res.render("after");
 })
 app.get('/chat',(req,res)=>{
-  res.render("chat");
+  res.render("chat",{username:"student",teacher:"teacher"});
 
 })
+
 
 
 function authenticationMiddleware1() {

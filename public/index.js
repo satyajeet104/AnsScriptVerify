@@ -1,10 +1,13 @@
 
 var socket = io();
-var user = prompt("who you ?")
+
 $(function () {
     var msg = $('#msg');
     var sendBtn = $('#send');
     var chat = $('#chat');
+    var user = $('#userName').text();
+    console.log(user);
+
 
 
     sendBtn.click(function () {
