@@ -16,6 +16,9 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
   <link rel="stylesheet" type="text/css" href="/../../style1.css">
+  
+   
+
  
   <title>
     <%=username %> Dashboard</title>
@@ -23,6 +26,10 @@
 </head>
 
 <body>
+
+    <canvas id="draw" height=100px width=100px keepalive="true">
+ 
+      </canvas>
 
   <div id="particles-js"></div>
   <nav>
@@ -147,6 +154,9 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/../../index.js"></script>
+<script src="/javascripts/socket.js"></script>
+<script src="/javascripts/paper.js"></script>
+<script  type="text/paperscript", src="javascripts/draw.js", canvas="draw"></script>
 <script type="text/javascript" src="/dashboard.js"></script>
 
 
