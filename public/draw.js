@@ -1,25 +1,14 @@
 
-// The faster the user moves their mouse
-// the larger the circle will be
-// We dont want it to be larger than this
-
-// Connect to the nodeJs Server
-//io = io.connect('/');
 tool.maxDistance = 10;
 
 
 
-
-// every time the user drags their mouse
-// this function will be executed
 function onMouseDrag(event) {
 
   // Take the click/touch position as the centre of our circle
   var x = event.middlePoint.x;
   var y = event.middlePoint.y;
-  
-  // The faster the movement, the bigger the circle
-  //var radius = event.delta.length / 2;
+
   var radius=5;
   // Generate our random color
   var color = {red:1};
