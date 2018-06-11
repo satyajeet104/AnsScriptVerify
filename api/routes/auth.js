@@ -54,6 +54,7 @@ router.post('/adminAuth',  passport.authenticate('local.two', { failureRedirect:
  
 
 })
+
 router.post('/teacherAuth',  passport.authenticate('local.three', { failureRedirect: '/teacherLogin' }), (req, res,next) => {
   var sql = 'select * from teacher_auth where id=?;';
     
@@ -65,7 +66,19 @@ router.post('/teacherAuth',  passport.authenticate('local.three', { failureRedir
         res.send(null);
     }
     else{
-      res.render('../views/teacherDashboard', {username:results[0].name});
+      var teacher=results[0].name;
+
+        console.log("running correctly")
+      var sql1 = " SELECT student , page from doubt where resolved='0' and teacher=?";
+    
+      db.query(sql1,[teacher], function (error, results, fields) {
+        if (error) throw error;
+        console.log('The solution is: ', results);     
+       
+
+      
+      res.render('../views/teacherDashboard', {username:teacher,some:results});
+      })
         
     }
  

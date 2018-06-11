@@ -14,8 +14,7 @@
   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
            
-    <script type="text/javascript" src="/instascan.min.js"></script>
-    <script type="text/javascript" src="/qrcode.js"></script>
+  
     <title><%=username %> Dashboard</title>
    
 </head>
@@ -54,55 +53,55 @@
     <div class="col s12 m8 offset-m2 l8 offset-l2">
     <div class="card">
     <div class="card-content text-responsive center-align orange lighten-2">
-        <p>Select the action you want to perform</p>
+        <p>                        </p>
     </div>
     <div class="card-tabs">
       <ul class="tabs tabs-fixed-width">
-        <li class="tab"><a href="#test4">Take Attendance</a></li>
+        <li class="tab"><a href="#test4">Attend Doubt</a></li>
       
       </ul>
     </div>
     <div class="card-content grey lighten-2 center-align">
-      <div id="test4">Take Attendance<br>
-        Type in some text to generate a unique QR code.
+      <div id="test4">Raised Doubts<br>
+
        <br>
         <!-- <input id="text" type="text" value="hello"  style='width:50%'/><br /> -->
         <!-- <div id="qrcode" class="center-align" style="margin-left:auto; margin-right:auto ;width:25%; min-height:25%" ></div>
-    -->
-        <br>
+  
+    
+ 
+
+  --> 
+  
+
+<ul>
+    <% for(var i=0; i<some.length; i++) { %>
+        <li>
+            <%= some[i].student %> <%=some[i].page%>
+        </li>
+    <% } %>
+</ul>
 
 
 
-
-
-            <form    action="/api/routes/teacher/takeAttendance" method="post">
+            <form    action="/sessionTeacher" method="post">
               <div class="row">
             
-                <div class="input-field col s3">
-                  <input id="date" type="text" name='date' required>
-                  <label for="date">Date</label>
+                <div class="input-field col s6">
+                  <input id="date" type="text" name='tname' required>
+                  <label for="date">Student Name</label>
                 </div>
              
-                <div class="input-field col s3">
-                  <input id="text" type="text" value="hello"  style='width:50%' name='otp' required>
-                  <label for="text">OTP</label>
+                <div class="input-field col s6">
+                  <input id="text" type="text" name='page' required>
+                  <label for="text">Page Number</label>
                 </div>
              
-                    <div class="input-field col s3">
-                      <input id="class_" type="text" name='class' required>
-                      <label for="class_">Class</label>
-                    </div>
-
-                    <div class="input-field col s3">
-                      <input id="subject" type="text" name='subject' required>
-                      <label for="subject">Subject</label>
-                    </div>
-
-                  </div>
+              
               
                   <div class="row">
                         <div class="input-field col s12">
-                                <input class="btn waves-effect hoverable" type='submit' value='Take Attendance'>
+                                <input class="btn waves-effect hoverable" type='submit' value='Attend Doubt'>
                         </div>
                       </div>
 
