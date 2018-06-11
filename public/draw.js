@@ -2,6 +2,9 @@
 // The faster the user moves their mouse
 // the larger the circle will be
 // We dont want it to be larger than this
+
+// Connect to the nodeJs Server
+//io = io.connect('/');
 tool.maxDistance = 10;
 
 
@@ -47,18 +50,20 @@ function drawCircle( x, y, radius, color ) {
 function emitCircle( x, y, radius, color ) {
 
   // Each Socket.IO connection has a unique session id
-  var sessionId = io.socket.sessionid;
+  var sessionId = io.id;
+  var touser=$('#teacher').text();
   
   // An object to describe the circle's draw data
   var data = {
     x: x,
     y: y,
     radius: radius,
-    color: color
+    color: color,
+    touser:touser
   };
-
+  
   // send a 'drawCircle' event with data and sessionId to the server
-  io.emit( 'drawCircle', data, sessionId )
+  io.emit( 'drawCircle', data, sessionId)
 
   // Lets have a look at the data we're sending
   console.log( data )

@@ -17,7 +17,7 @@ const http = require('http');
 
 const auth = require('./api/routes/auth')
 const admin = require('./api/routes/admin')
-const student=require('./api/routes/student')
+//const student=require('./api/routes/student')
 
 app.set("view engine", "ejs");
 
@@ -269,6 +269,24 @@ app.get('/chat',(req,res)=>{
   res.render("chat",{username:"student",teacher:"teacher"});
 
 })
+app.post('/session',function(req,res){
+
+  var sql = 'select * from student_auth where id=?;';
+
+  db.query(sql, [req.user], function (error, results, fields) {
+    if (error) throw error;
+    console.log('The solution is: ', results);
+    if (results[0] == null) {
+      res.send(null);
+    }
+    else {
+      res.render('chat', { username: results[0].name, teacher: req.body.tname });
+
+    }
+
+  })
+  
+})
 
 
 
@@ -302,7 +320,7 @@ function authenticationMiddleware3() {
 
 app.use('/api/routes/auth', auth);
 app.use('/api/routes/admin', admin);
-app.use('/api/routes/student',student);
+//app.use('/api/routes/student',student);
 
 
 app.use('/', express.static(path.join(__dirname, 'public')))
@@ -320,27 +338,29 @@ io.on('connection', function (socket) {
     console.log("a new connection has connected");
 
     socket.on('new_msg', function (data) {
-        if (data.msg.charAt(0) == '@'){
+      
             console.log(data);
-            console.log(data.msg.split(" ")[0]);
-            var msg = data.msg.substring(data.msg.indexOf(" ") + 1)
-            console.log(msg)
-            io.to(users[data.msg.split(" ")[0]]).emit('chat',{
-                username: data.username,
-                msg : msg
-            });
 
-        }else{
-            console.log(data);
-            io.emit('chat', data);
-        }
+            io.to(users[data.touser]).emit('chat',data);        
 
     })
 
     socket.on('store_user', function (data) {
-        users["@" + data.user] = socket.id
+        users[data.user] = socket.id
         console.log(users);
     })
+
+    socket.on( 'drawCircle', function( data, session) {
+
+        console.log( "session " + session + " drew:");
+        console.log( data );
+        io.to(users[data.touser]).emit('drawCircle',data);        
+       
+    
+      //  socket.broadcast.emit( 'drawCircle', data );
+    
+      });
+    
 
 
 })

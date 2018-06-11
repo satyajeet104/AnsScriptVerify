@@ -2,11 +2,12 @@
 var socket = io();
 
 $(function () {
+  
     var msg = $('#msg');
     var sendBtn = $('#send');
     var chat = $('#chat');
     var user = $('#userName').text();
-    console.log(user);
+    //console.log(socket.socket.sessionid);
 
 
 
@@ -25,4 +26,4 @@ $(function () {
     socket.emit('store_user', {
         user: user
     })
-});
+  })
