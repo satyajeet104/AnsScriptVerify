@@ -79,10 +79,36 @@ function initialDB() {
     })
 
   });
+
+  var promise4 = new Promise(function (resolve, reject) {
+
+    var sql = ` CREATE TABLE if NOT EXISTS doubt (
+      student varchar(40),
+      teacher varchar(40),
+      resolved char(1),
+      page int,
+      PRIMARY key(student,teacher,resolved,page)
+      )
+  
+   `;
+
+    db.query(sql, function (error, results, fields) {
+      if (error) throw error;
+      console.log('The solution is: ', results);
+      resolve();
+    })
+
+  });
+
+
+
+
   promise1.then(function (data) {
     return promise2;
   }).then(function (data) {
     return promise3;
+  }).then(function (data) {
+    return promise4;
   }).then(function (data) {
     console.log("Initialization done");
   })
@@ -259,17 +285,49 @@ app.get('/views/admin', (req, res) => {
 
 });
 
-app.get('/test',(req,res)=>{
-  res.render("studentDashboard",{username:'Settimana'})
+app.get('/test', (req, res) => {
+  res.render("studentDashboard", { username: 'Settimana' })
 })
-app.get('/test1',(req,res)=>{
+app.get('/test1', (req, res) => {
   res.render("after");
 })
-app.get('/chat',(req,res)=>{
-  res.render("chat",{username:"Settimana",teacher:"teacher"});
+app.get('/chat', (req, res) => {
+  res.render("chat", { username: "Settimana", teacher: "teacher" ,page:1});
 
 })
-app.post('/session',function(req,res){
+app.post('/sessionTeacher', function (req, res) {
+
+  var sql = 'select * from teacher_auth where id=?;';
+
+  db.query(sql, [req.user], function (error, results, fields) {
+    if (error) throw error;
+    console.log('The solution is: ', results);
+    if (results[0] == null) {
+      res.send(null);
+    }
+    else {
+     
+      var student = results[0].name;
+      var teacher = req.body.tname;
+      var resolve = '0';
+      var page = req.body.page;
+
+      var sql1 = `insert into doubt values(?,?,?,?);`;
+
+      db.query(sql1, [student, teacher, resolve, page], function (error, results, fields) {
+        if (error) { reject(error); return; }
+        console.log('The solution is: ', results);
+        res.render('chat', { username: student, teacher: req.body.tname, page: req.body.page });
+
+      })
+
+    }
+
+  })
+
+})
+
+app.post('/session', function (req, res) {
 
   var sql = 'select * from student_auth where id=?;';
 
@@ -280,13 +338,57 @@ app.post('/session',function(req,res){
       res.send(null);
     }
     else {
-      res.render('chat', { username: results[0].name, teacher: req.body.tname });
+     
+      var student = results[0].name;
+      var teacher = req.body.tname;
+      var resolve = '0';
+      var page = req.body.page;
+
+      var sql1 = `insert into doubt values(?,?,?,?);`;
+
+      db.query(sql1, [student, teacher, resolve, page], function (error, results, fields) {
+        if (error) { reject(error); return; }
+        console.log('The solution is: ', results);
+        res.render('chat', { username: student, teacher: req.body.tname, page: req.body.page });
+
+      })
 
     }
 
   })
-  
+
 })
+
+app.post('/resolve',(req,res)=>{
+
+  var sql = 'select * from student_auth where id=?;';
+
+  db.query(sql, [req.user], function (error, results, fields) {
+    if (error) throw error;
+    console.log('The solution is: ', results);
+    if (results[0] == null) {
+      res.send(null);
+    }
+    else {
+      var student=results[0].name;
+
+      var sql1 = "update doubt set resolved='1' where student=?;";
+
+  db.query(sql1, [student], function (error, results, fields) {
+    if (error) throw error;
+    console.log('The solution is: ', results);
+
+    res.redirect('/studentProfile');
+    
+    })
+
+  }
+
+
+})
+})
+
+
 
 
 
@@ -328,39 +430,39 @@ app.use('/', express.static(path.join(__dirname, 'public')))
 app.use(express.static(__dirname + 'public'));
 
 
-var server  = app.listen(2978);
-var io      = require('socket.io').listen(server);
+var server = app.listen(2978);
+var io = require('socket.io').listen(server);
 let users = {};
 
 io.on('connection', function (socket) {
 
 
-    console.log("a new connection has connected");
+  console.log("a new connection has connected");
 
-    socket.on('new_msg', function (data) {
-      
-            console.log(data);
+  socket.on('new_msg', function (data) {
 
-            io.to(users[data.touser]).emit('chat',data);        
+    console.log(data);
 
-    })
+    io.to(users[data.touser]).emit('chat', data);
 
-    socket.on('store_user', function (data) {
-        users[data.user] = socket.id
-        console.log(users);
-    })
+  })
 
-    socket.on( 'drawCircle', function( data, session) {
+  socket.on('store_user', function (data) {
+    users[data.user] = socket.id
+    console.log(users);
+  })
 
-        console.log( "session " + session + " drew:");
-        console.log( data );
-        io.to(users[data.touser]).emit('drawCircle',data);        
-       
-    
-      //  socket.broadcast.emit( 'drawCircle', data );
-    
-      });
-    
+  socket.on('drawCircle', function (data, session) {
+
+    console.log("session " + session + " drew:");
+    console.log(data);
+    io.to(users[data.touser]).emit('drawCircle', data);
+
+
+    //  socket.broadcast.emit( 'drawCircle', data );
+
+  });
+
 
 
 })

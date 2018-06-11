@@ -124,7 +124,7 @@
       <div class="flex-container">
           <div>
 
-            <div id="bhatura" style=" background-size: contain;  background-repeat: no-repeat;   background-image: url('/uploads/<%-username %>/1.png');">
+            <div id="bhatura" style=" background-size: contain;  background-repeat: no-repeat;   background-image: url('/uploads/<%-username%>/<%-page%>.png');">
                               <canvas id="draw" resize="true" keepalive="true"  >
                    
                   </canvas>      
@@ -132,9 +132,7 @@
               </div>             
               
                         
-  <button id="nextPic" class="btn waves-effect waves-light" type="submit" name="action">Next
-      <i class="material-icons right">send</i>
-    </button>
+  
               
 
 
@@ -176,6 +174,17 @@
          
         </div>
 
+<div class="row">
+        
+        <form action="/resolve" method="post">
+          <div class="row">
+            <div class="input-field col s12">
+              <input class="btn waves-effect hoverable" type='submit' value='Resolve Doubt'>
+            </div>
+          </div>
+
+        </form>
+      </div>
       
 
    
