@@ -104,6 +104,8 @@
 }
         
         </style>
+
+     
 </head>
 <body>
 
@@ -121,29 +123,18 @@
 
       <div class="flex-container">
           <div>
-              <canvas id="draw"  keepalive="true"  >
-     
-                </canvas>
-                            
-          
-          
-              <div class="carousel carousel-slider">
-                  <a class="carousel-item" href="#one!"><img src="/uploads/Settimana/1.png"></a>
-                  <a class="carousel-item" href="#one!"><img src="/uploads/Settimana/2.png"></a>
-                  <a class="carousel-item" href="#one!"><img src="/uploads/<%-username %>/3.png"></a>
-                  <a class="carousel-item" href="#one!"><img src="/uploads/<%-username %>/4.png"></a>
-                  <a class="carousel-item" href="#one!"><img src="/uploads/<%-username %>/5.png"></a>
-                  <a class="carousel-item" href="#one!"><img src="/uploads/<%-username %>/6.png"></a>
-                  <a class="carousel-item" href="#one!"><img src="/uploads/<%-username %>/7.png"></a>
-                  <a class="carousel-item" href="#one!"><img src="/uploads/<%-username %>/8.png"></a>
-                  <a class="carousel-item" href="#one!"><img src="/uploads/<%-username %>/9.png"></a>
-                  <a class="carousel-item" href="#one!"><img src="/uploads/<%-username %>/10.png"></a>          
-                </div>
-                      
-               <br>
+
+            <div id="bhatura" style=" background-size: contain;  background-repeat: no-repeat;   background-image: url('/uploads/<%-username %>/1.png');">
+                              <canvas id="draw" resize="true" keepalive="true"  >
+                   
+                  </canvas>      
+                          
+              </div>             
               
-               <div class="btn green prev waves-effect">Prev</div>
-               <div class="btn green next waves-effect">Next</div>
+                        
+  <button id="nextPic" class="btn waves-effect waves-light" type="submit" name="action">Next
+      <i class="material-icons right">send</i>
+    </button>
               
 
 

@@ -266,7 +266,7 @@ app.get('/test1',(req,res)=>{
   res.render("after");
 })
 app.get('/chat',(req,res)=>{
-  res.render("chat",{username:"student",teacher:"teacher"});
+  res.render("chat",{username:"Settimana",teacher:"teacher"});
 
 })
 app.post('/session',function(req,res){
