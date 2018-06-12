@@ -48,62 +48,6 @@
 }
         </style>
 
-        <style>
-          
-
-.chatbox {
-	width: 500px;
-	min-width: 390px;
-	height: 600px;
-	background:lawngreen;
-	padding: 25px;
-	margin: 20px auto;
-	box-shadow: 0 3px #ccc;
-}
-
-.chatlogs {
-	padding: 10px;
-	width: 100%;
-	height: 450px;
-	overflow-x: hidden;
-	overflow-y: scroll;
-}
-
-.chatlogs::-webkit-scrollbar {
-	width: 10px;
-}
-
-.chatlogs::-webkit-scrollbar-thumb {
-	border-radius: 5px;
-	background: rgba(0,0,0,.1);
-}
-
-.chat {
-	display: flex;
-	flex-flow: row wrap;
-	align-items: flex-start;
-	margin-bottom: 10px;
-}
-
-
-
-.chat .chat-message {
-	width: 80%;
-	padding: 15px;
-	margin: 5px 10px 0;
-	border-radius: 10px;
-	color: #fff;
-	font-size: 20px;
-}
-
-.friend .chat-message {
-	background: lightgreen;
-}
-.friend .chat-message{
-  background:cyan;
-}
-        
-        </style>
 
      
 </head>
@@ -138,36 +82,19 @@
 
 
           </div>
-          <div>
+          <div style="overflow:hidden;">
               
   
     <h1 id="username"><%=username%></h1>
     <h1 id="teacher"><%=teacher%></h1>
   <input type="text" id="msg" placeholder="text"><br>
   <input type="submit" value="send" id="send">
-  <ul id="chat">
+  <ul id="chat" style="overflow:hidden;">
 
       
   </ul>
 
-  <div class="chatbox">
-      <div class="chatlogs">
-     
-        <div class="chat friend">
-        
-          <p class="chat-message">What's up, Brother ..!!</p>	
-        </div>
-        <div class="chat self">
  
-          <p class="chat-message">What's up ..!!</p>	
-        </div>
-       
-      </div>
-      <div class="chat-form">
-        <textarea></textarea>
-        <button>Send</button>
-      </div>
-    </div>
 
 
           </div>

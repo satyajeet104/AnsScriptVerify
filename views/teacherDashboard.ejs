@@ -62,25 +62,25 @@
       </ul>
     </div>
     <div class="card-content grey lighten-2 center-align">
-      <div id="test4">Raised Doubts<br>
+      <div id="test4"><br>
 
-       <br>
-        <!-- <input id="text" type="text" value="hello"  style='width:50%'/><br /> -->
-        <!-- <div id="qrcode" class="center-align" style="margin-left:auto; margin-right:auto ;width:25%; min-height:25%" ></div>
+       
+       <ul class="collection with-header">
+        <li class="collection-header"><h4>Raised Doubts</h4></li>
+        <li class="collection-item"> &emsp; &emsp;  Number  &emsp;  &emsp;&emsp; &emsp; &emsp;Student  &emsp;  &emsp;&emsp; &emsp; &emsp;Page No</li>
+
+        <% for(var i=1; i<=some.length; i++) { %>
+          <li class="collection-item">
+              <%=i%> &emsp; &emsp;  &emsp;  &emsp;&emsp; &emsp; &emsp;    <%= some[i-1].student %>&emsp; &emsp; &emsp; &emsp; &emsp; &emsp;  &emsp;<%=some[i-1].page%>
+          </li>
+      <% } %>
+       
+      </ul>
   
     
- 
 
-  --> 
   
 
-<ul>
-    <% for(var i=0; i<some.length; i++) { %>
-        <li>
-            <%= some[i].student %> <%=some[i].page%>
-        </li>
-    <% } %>
-</ul>
 
 
 

@@ -240,7 +240,7 @@ app.get('/teacherProfile', authenticationMiddleware2(), (req, res) => {
       res.send(null);
     }
     else {
-    
+    var teacher=results[0].name;
       var sql1 = " SELECT student , page from doubt where resolved='0' and teacher=?";
     
       db.query(sql1,[teacher], function (error, results, fields) {
