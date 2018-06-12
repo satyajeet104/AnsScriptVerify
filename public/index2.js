@@ -13,7 +13,8 @@ $(function () {
     
 
     sendBtn.click(function () {
-        chat.append("<li>" + user + ": " + msg.val() + "</li>")
+        chat.append('<div class="chat self">  <div class="user-photo"></div><p class="chat-message">'+msg.val()+'</p></div>');
+
         io.emit('new_msg', {
             username: user,
             msg: msg.val(),
@@ -23,7 +24,8 @@ $(function () {
 
 
     io.on('chat', function (data) {
-        chat.append("<li>" + data.username + ": " + data.msg + "</li>")
+        chat.append('<div class="chat friend">  <div class="user-photo"></div><p class="chat-message">'+msg.val()+'</p></div>');
+
         console.log(io.id);
 
     })
