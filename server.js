@@ -319,17 +319,12 @@ app.post('/sessionTeacher', function (req, res) {
      
       var student = results[0].name;
       var teacher = req.body.tname;
-      var resolve = '0';
+  
       var page = req.body.page;
 
-      var sql1 = `insert into doubt values(?,?,?,?);`;
+     
 
-      db.query(sql1, [student, teacher, resolve, page], function (error, results, fields) {
-        if (error) { reject(error); return; }
-        console.log('The solution is: ', results);
-        res.render('chat', { username: student, teacher: req.body.tname, page: req.body.page });
-
-      })
+      res.render('chatTeacher', { username: student, teacher: req.body.tname, page: req.body.page });
 
     }
 
@@ -357,7 +352,7 @@ app.post('/session', function (req, res) {
       var sql1 = `insert into doubt values(?,?,?,?);`;
 
       db.query(sql1, [student, teacher, resolve, page], function (error, results, fields) {
-        if (error) { reject(error); return; }
+        if (error) {console.log(error); return; }
         console.log('The solution is: ', results);
         res.render('chat', { username: student, teacher: req.body.tname, page: req.body.page });
 

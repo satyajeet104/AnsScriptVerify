@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="socket.io/socket.io.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.js"
+            integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+            crossorigin="anonymous"></script>
+
+            <script> $(".button-collapse").sideNav();</script>
+    <script src="index2.js"></script>
+    <script src="paper.js"></script>
+    <script  type="text/paperscript" src="draw.js" canvas="draw"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+
+    <style>
+        .flex-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-around
+         
+        }
+        
+        .flex-container > div {
+          background-color: #f1f1f1;
+          width: 620px;
+          margin: 10px;
+          text-align: center;
+          line-height: 75px;          
+        }
+        @media (max-width: 800px) {
+          .flex-container {
+        flex: 50%;
+        max-width: 100%;
+    }
+}
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media (max-width: 600px) {
+  .flex-container {
+        flex: 100%;
+        max-width: 100%;
+    }
+}
+        </style>
+
+      <style>
+        .chatbox {
+	width: 500px;
+	min-width: 390px;
+	height: 600px;
+	background: #fff;
+	padding: 25px;
+	margin: 20px auto;
+	box-shadow: 0 3px #ccc;
+}
+
+.chatlogs {
+	padding: 10px;
+	width: 100%;
+	height: 450px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.chatlogs::-webkit-scrollbar {
+	width: 10px;
+}
+
+.chatlogs::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+	background: rgba(0,0,0,.1);
+}
+
+.chat {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: flex-start;
+	margin-bottom: 10px;
+}
+
+
+.chat .user-photo {
+	width: 60px;
+	height: 60px;
+	background: #ccc;
+	border-radius: 50%;
+}
+
+.chat .chat-message {
+	width: 80%;
+	padding: 15px;
+	margin: 5px 10px 0;
+	border-radius: 10px;
+	color: #fff;
+
+}
+
+.friend .chat-message {
+	background: #1adda4;
+}
+
+.self .chat-message {
+	background: #1ddced;
+	order: -1;
+}
+
+.chat-form {
+	margin-top: 20px;
+	display: flex;
+	align-items: flex-start;
+}
+
+.chat-form textarea {
+	background: #fbfbfb;
+	width: 75%;
+	height: 50px;
+	border: 2px solid #eee;
+	border-radius: 3px;
+	resize: none;
+	padding: 10px;
+	font-size: 18px;
+	color: #333;
+}
+
+.chat-form textarea:focus {
+	background: #fff;
+}
+
+.chat-form button {
+	background: #1ddced;
+	padding: 5px 15px;
+	font-size: 30px;
+	color: #fff;
+	border: none;
+	margin: 0 10px;
+	border-radius: 3px;
+	box-shadow: 0 3px 0 #0eb2c1;
+	cursor: pointer;
+
+	-webkit-transaction: background .2s ease;
+	-moz-transaction: backgroud .2s ease;
+	-o-transaction: backgroud .2s ease;
+}
+
+.chat-form button:hover {
+	background: #13c8d9;
+}
+      
+      </style>
+     
+</head>
+<body>
+
+    <div id="particles-js"></div>
+
+    <nav>
+        <div class="nav-wrapper">
+            <span href="#!" style="margin-left: 10px" >You are logged in as <strong><%=username %></strong></span>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+           
+            <li><a href="/api/routes/auth/logout">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="flex-container">
+          <div style="background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);">
+
+            <div id="bhatura" style=" margin-top:40px; background-size: contain;  background-repeat: no-repeat;   background-image: url('/uploads/<%-teacher%>/<%-page%>.png');">
+                              <canvas id="draw" resize="true" keepalive="true"  >
+                   
+                  </canvas>      
+                          
+              </div>             
+              
+                        
+  
+              
+
+
+
+          </div>
+          <div style="z-index: 100;background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);">
+              
+  
+    <h1 style="display: none" id="username"><%=username%></h1>
+    <h1 style="display: none" id="teacher"><%=teacher%></h1>
+
+
+
+  <div style="background-image: linear-gradient(to right, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%);" class="chatbox">
+      <div class="chatlogs" id="chat">
+   
+     
+      </div>
+      <div class="chat-form">
+          <input type="text" id="msg" placeholder="Message">
+          
+        <input  type="submit" class="btn waves-effect waves-light"  value="Send" id="send">
+      </div>
+    </div>
+          </div>
+         
+        </div>
+       
+<div class="row" >
+
+  <div class="col l6 offset-l5"> 
+        
+        <a class="btn hoverable "href="/teacherProfile">Go to Dashboard</a>
+      </div>
+    </div>
+      
+
+   
+    
+
+    
+  
+  
+  
+  
+          <footer class="page-footer " style="left: 0;bottom: 0;width: 100%;">
+  
+            <div class="footer-copyright">
+              <div class="container">
+              © 2018 QRAttend
+              <p class="grey-text text-lighten-4 right">Designed and Developed By <strong>Sandeep Yadav</strong> and <strong>Satyajeet Singh</strong></p>
+             
+            </div>
+            </div>
+          </footer>
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+<script>
+  $('.carousel.carousel-slider').carousel({
+    fullWidth: true
+  });
+  $('.next').click(function(){
+    $('.carousel.carousel-slider').carousel('next');
+		});
+    
+    // function for prev slide
+		$('.prev').click(function(){
+			$('.carousel.carousel-slider').carousel('prev');
+		});
+      
+</script>
+<script> $(".button-collapse").sideNav();</script>
+ 
+ <script type="text/javascript" src="/javascript/particles.js"></script>
+
+
+<style>
+    #particles-js {
+       
+    background-image:linear-gradient(to right, #434343 0%,#000000 100%);; /* #01013e */
+      /* background: url("http://www.vlime.co.nz/images/buttons/backgroundimage.jpg");
+      background-attachment: fixed;
+      background-size: cover; */
+      z-index: -50;
+      position: fixed;
+    height: 100%;
+      width: 100%;
+  }
+  </style>
+   
+  <script>
+    
+  
+    particlesJS('particles-js',
+      
+      {
+        "particles": {
+          "number": {
+            "value": 100,
+            "density": {
+              "enable": true,
+              "value_area": 800
+            }
+          },
+          "color": {
+            "value": "#ffffff"
+          },
+          "shape": {
+            "type": "circle",
+            "stroke": {
+              "width": 0,
+              "color": "#000000"
+            },
+            "polygon": {
+              "nb_sides": 5
+            },
+            "image": {
+              "src": "img/github.svg",
+              "width": 100,
+              "height": 100
+            }
+          },
+          "opacity": {
+            "value": 0.5,
+            "random": false,
+            "anim": {
+              "enable": false,
+              "speed": 1,
+              "opacity_min": 0.1,
+              "sync": false
+            }
+          },
+          "size": {
+            "value": 5,
+            "random": true,
+            "anim": {
+              "enable": false,
+              "speed": 40,
+              "size_min": 0.1,
+              "sync": false
+            }
+          },
+          "line_linked": {
+            "enable": false,
+            "distance": 150,
+            "color": "#ffffff",
+            "opacity": 0.4,
+            "width": 1
+          },
+          "move": {
+            "enable": true,
+            "speed": 6,
+            "direction": "none",
+            "random": false,
+            "straight": false,
+            "out_mode": "out",
+            "attract": {
+              "enable": false,
+              "rotateX": 600,
+              "rotateY": 1200
+            }
+          }
+        },
+        "interactivity": {
+          "detect_on": "canvas",
+          "events": {
+            "onhover": {
+              "enable": false,
+              "mode": "repulse"
+            },
+            "onclick": {
+              "enable": false,
+              "mode": "push"
+            },
+            "resize": true
+          },
+          "modes": {
+            "grab": {
+              "distance": 400,
+              "line_linked": {
+                "opacity": 1
+              }
+            },
+            "bubble": {
+              "distance": 400,
+              "size": 40,
+              "duration": 2,
+              "opacity": 8,
+              "speed": 3
+            },
+            "repulse": {
+              "distance": 200
+            },
+            "push": {
+              "particles_nb": 4
+            },
+            "remove": {
+              "particles_nb": 2
+            }
+          }
+        },
+        "retina_detect": true,
+        "config_demo": {
+          "hide_card": false,
+          "background_color": "#b61924",
+          "background_image": "",
+          "background_position": "50% 50%",
+          "background_repeat": "no-repeat",
+          "background_size": "cover"
+        }
+      }
+    
+    );
+    
+      
+      </script>
+
+</body>
+</html>
