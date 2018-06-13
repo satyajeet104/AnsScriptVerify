@@ -167,9 +167,9 @@
       </nav>
 
       <div class="flex-container">
-          <div>
+          <div style="background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);">
 
-            <div id="bhatura" style=" background-size: contain;  background-repeat: no-repeat;   background-image: url('/uploads/<%-username%>/<%-page%>.png');">
+            <div id="bhatura" style=" margin-top:40px; background-size: contain;  background-repeat: no-repeat;   background-image: url('/uploads/<%-username%>/<%-page%>.png');">
                               <canvas id="draw" resize="true" keepalive="true"  >
                    
                   </canvas>      
@@ -183,7 +183,7 @@
 
 
           </div>
-          <div style="z-index: 100;">
+          <div style="z-index: 100;background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);">
               
   
     <h1 style="display: none" id="username"><%=username%></h1>
@@ -191,7 +191,7 @@
 
 
 
-  <div style="background: #e53935 " class="chatbox">
+  <div style="background-image: linear-gradient(to right, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%);" class="chatbox">
       <div class="chatlogs" id="chat">
    
      
@@ -207,9 +207,14 @@
         </div>
        
 <div class="row" >
+
+  <div class="col l6 offset-l5">
+
+
+ 
         
-        <form action="/resolve" method="post">
-          <div class="row" style="margin: auto;">
+        <form action="/resolve" method="post" style="margin: auto;">
+          <div class="row" >
             <div class="input-field col s12">
               <input class="btn waves-effect hoverable btn-large center-align" type='submit' value='Resolve Doubt'>
             </div>
@@ -217,6 +222,7 @@
 
         </form>
       </div>
+    </div>
       
 
    
